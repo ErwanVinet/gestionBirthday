@@ -1,5 +1,5 @@
 from django import forms
-from .models import Invite, Logemenent
+from .models import Invite, Logement
 
 class InviteForm(forms.ModelForm):
     class Meta:
@@ -8,5 +8,5 @@ class InviteForm(forms.ModelForm):
 
 class LogementForm(forms.ModelForm):
     class Meta:
-        model = Logemenent
+        model = Logement
         fields = ['nom', 'localisation', 'lien', 'prix', 'place']

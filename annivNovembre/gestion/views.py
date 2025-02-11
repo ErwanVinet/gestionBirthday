@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Invite, Logemenent
+from .models import Invite, Logement
 from .forms import InviteForm, LogementForm
 # Create your views here.
 
@@ -8,7 +8,7 @@ def home(request):
     return(render(request, 'home.html', {'invites':invites}))
 
 def home_logement(request):
-    logements = Logemenent.objects.all()
+    logements = Logement.objects.all()
     return(render(request, 'home_logement.html', {'logements':logements}))
 
 def ajout_invite(request):
@@ -35,7 +35,6 @@ def ajout_salle(request):
 def gestion(request):
     return(render(request, 'ajout_invite.html'))
 
-
 def modifier_invite(request, invite_id):
     invite = get_object_or_404(Invite, id=invite_id)
     if request.method == "POST":
@@ -48,24 +47,26 @@ def modifier_invite(request, invite_id):
     
     return render(request, 'modifier_invite.html', {'form': form})
 
-# Supprimer un invité
 def supprimer_invite(request, invite_id):
     invite = get_object_or_404(Invite, id=invite_id)
     invite.delete()
     return redirect('home')
 
 def supprimer_logement(request, logement_id):
-    logement = get_object_or_404(Logemenent, id=logement_id)
+    logement = get_object_or_404(Logement, id=logement_id)
     logement.delete()
     return redirect('home')
 
 def gerer_invites_logement(request, salle_id):
-    logemenent = get_object_or_404(Logemenent, id=salle_id)
+    logement = get_object_or_404(Logement, id=salle_id)
     invites = Invite.objects.all()  # Tous les invités disponibles
 
     if request.method == "POST":
         invites_selectionnes = request.POST.getlist('invites')  # Liste des invités sélectionnés
-        Logemenent.invite_set.set(invites_selectionnes)  # Met à jour les invités dans la salle
+        #Logemenent.invite_set.set(invites_selectionnes)  # Met à jour les invités dans la salle
+        for invite in invites_selectionnes:
+            Invite.objects.filter(logement=logement).update(logement=None)  # Supprime les anciens
+            Invite.objects.filter(id__in=invites_selectionnes).update(logement=logement)  
         return redirect('home')  # Redirige après modification
 
-    return render(request, 'gerer_logement.html', {'logement': logemenent, 'invites': invites})
+    return render(request, 'gerer_logement.html', {'logement': logement, 'invites': invites})
