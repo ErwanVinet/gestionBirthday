@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{%  load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css"  href="{% static 'css/home.css' %}">
+{% endblock %}
+{% block content %}
+    <h1>Liste des Invités</h1>
+    <div class="btn-container">
+        <a href="{% url 'home' %}" class="btn btn-primary">Afficher les Invités</a>
+        <a href="{% url 'home_logement' %}" class="btn btn-secondary">Afficher les Salles</a>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Inviteur</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for invite in invites %}
+                <tr>
+                    <td>{{ invite.nom }}</td>
+                    <td>{{ invite.prenom }}</td>
+                    <td>{{ invite.orga.nom }}</td>
+                    <td>
+                        <a href="{% url 'modifier_invite' invite.id %}" class="btn btn-edit">Modifier</a>
+                        <a href="{% url 'supprimer_invite' invite.id %}" class="btn btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet invité ?');">Supprimer</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">Aucun invité enregistré.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
