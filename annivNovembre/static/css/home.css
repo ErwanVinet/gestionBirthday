@@ -22,14 +22,19 @@ th, td {
     text-align: center;
 }
 
+.loge-true {
+    background-color: #2ecc71;
+}
+
+.loge-false {
+    background-color: #c82333;
+}
+
 th {
-    background-color: #007bff;
+    background-color: #333;
     color: white;
 }
 
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
 
 tr:hover {
     background-color: #ddd;
@@ -59,4 +64,77 @@ tr:hover {
 
 .btn-delete:hover {
     background-color: #c82333;
+}
+
+/* Style général des boutons */
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    border-radius: 5px;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+/* Effet hover */
+.btn-orga:hover {
+    background-color: #4e0877;
+}
+
+.btn-orga {
+    background-color: purple;
+}
+
+/* Boutons actifs (filtre sélectionné) */
+.btn-active {
+    background-color: #2ecc71;
+    font-weight: bold;
+}
+
+/* Boutons de tri */
+.btn-sort {
+    background-color: #f39c12;
+}
+
+.btn-sort:hover {
+    background-color: #e67e22;
+}
+
+.btn-sans {
+    background-color: #28a745;
+}
+
+.btn-sans:hover {
+    background-color: #218838;
+}
+
+/* Conteneur des boutons */
+.filters {
+    margin: 15px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.btn-search {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.btn-search:hover {
+    background-color: #0056b3;
+}
+
+label {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }

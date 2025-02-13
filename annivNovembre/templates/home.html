@@ -4,11 +4,22 @@
 <link rel="stylesheet" type="text/css"  href="{% static 'css/home.css' %}">
 {% endblock %}
 {% block content %}
-    <h1>Liste des Invités</h1>
-    <div class="btn-container">
-        <a href="{% url 'home' %}" class="btn btn-primary">Afficher les Invités</a>
-        <a href="{% url 'home_logement' %}" class="btn btn-secondary">Afficher les Salles</a>
+    <h1>Liste des Invités ({{invites.count}})</h1>
+    <label for="name">Rechercher un invité :</label>
+    <input type="text" id="name" name="name"/>
+    <a href="#" class="btn-search" onclick="searchName()">Chercher</a>
+    <br>
+    <div>
+        <a href="{% url 'home' %}" class="btn btn-orga">Tous</a> <!-- Bouton pour tout afficher -->
+        {% for orga in orgas %}
+            <a href="?orga={{ orga.id }}" class="btn btn-orga {% if orga.id|stringformat:"s" == request.GET.orga %}btn-active{% endif %}">
+                {{ orga.nom }}
+            </a>
+        {% endfor %}
     </div>
+    <a href="?sans_logement=1" class="btn btn-sans {% if sans_logement %}btn-active{% endif %}">
+        Invités sans logement
+    </a>
     <table>
         <thead>
             <tr>
@@ -21,7 +32,11 @@
         </thead>
         <tbody>
             {% for invite in invites %}
-                <tr>
+            {% if invite.logement %}
+                <tr class="loge-true">
+            {% else  %}
+                <tr class="loge-false">
+            {% endif %}
                     <td>{{ invite.nom }}</td>
                     <td>{{ invite.prenom }}</td>
                     <td>{{ invite.orga.nom }}</td>
@@ -33,9 +48,16 @@
                 </tr>
             {% empty %}
                 <tr>
-                    <td colspan="4">Aucun invité enregistré.</td>
+                    <td colspan="5">Aucun invité enregistré.</td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+
+    <script>
+        function searchName() {
+            var nameValue = document.getElementById("name").value;
+            window.location.href = "?name=" + encodeURIComponent(nameValue);
+        }
+    </script>
 {% endblock %}

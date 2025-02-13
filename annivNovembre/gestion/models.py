@@ -20,9 +20,20 @@ class Invite(models.Model):
 class Logement(models.Model):
     nom = models.CharField(max_length=50)
     localisation = models.CharField(max_length=200)
-    lien = models.URLField()
+    lien = models.URLField(null=True, blank=True)
     prix = models.IntegerField()
-    #loges = models.ManyToManyField('Invite', blank=True, related_name='loge')
     place = models.IntegerField()
     def __str__(self):
         return f"{self.nom}"
+    
+class Extras(models.Model):
+    EXTRA_TYPE = [
+        ("Nourriture", "Nourriture"),
+        ("Boisson", "Boisson"), 
+        ("Autre", "Autre")
+    ]
+    extra_type = models.CharField(max_length=50, choices=EXTRA_TYPE)
+    nom = models.CharField(max_length=50)
+    description = models.CharField(null=True, blank=True)
+    prix = models.IntegerField()
+    quantite = models.IntegerField()

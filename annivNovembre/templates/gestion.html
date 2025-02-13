@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/gestion2.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="title">Budget Total à Prévoir : <span class="highlight">{{ budget }} €</span></h1>
+
+    <!-- Budget Logements -->
+    <section class="budget-section">
+        <h2 class="section-title">Budget des Logements : <span class="highlight">{{ prix_logement }} €</span></h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prix (€)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for logement in logements %}
+                <tr>
+                    <td>{{ logement.nom }}</td>
+                    <td>{{ logement.prix }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Budget Extras -->
+    <section class="budget-section">
+        <h2 class="section-title">Budget Extras : <span class="highlight">{{ extra_prix }} €</span></h2>
+
+        <!-- Nourriture -->
+        <h3>Budget Nourriture : <span class="highlight">{{ prix_nourriture }} €</span></h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prix (€)</th>
+                    <th>Quantité</th>
+                    <th>Total (€)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for nour in nourriture %}
+                <tr>
+                    <td>{{ nour.nom }}</td>
+                    <td>{{ nour.prix }}</td>
+                    <td>{{ nour.quantite }}</td>
+                    <td>{{ nour.total }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Boissons -->
+        <h3>Budget Boisson : <span class="highlight">{{ prix_boisson }} €</span></h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prix (€)</th>
+                    <th>Quantité</th>
+                    <th>Total (€)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for nour in boisson %}
+                <tr>
+                    <td>{{ nour.nom }}</td>
+                    <td>{{ nour.prix }}</td>
+                    <td>{{ nour.quantite }}</td>
+                    <td>{{ nour.total }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Autres Dépenses -->
+        <h3>Budget Autres : <span class="highlight">{{ prix_autre }} €</span></h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prix (€)</th>
+                    <th>Quantité</th>
+                    <th>Total (€)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for nour in autre %}
+                <tr>
+                    <td>{{ nour.nom }}</td>
+                    <td>{{ nour.prix }}</td>
+                    <td>{{ nour.quantite }}</td>
+                    <td>{{ nour.total }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</div>
+{% endblock %}

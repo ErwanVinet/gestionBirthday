@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{%  load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css"  href="{% static 'css/home.css' %}">
+{% endblock %}
+{% block content %}
+    <h1>Liste Des Extras</h1>
+    <a href="{% url 'home_extra' %}" class="btn btn-orga">Tous</a>
+    <a href="?type=Nourriture" class="btn btn-orga">Nourriture</a>
+    <a href="?type=Boisson" class="btn btn-orga">Boisson</a>
+    <a href="?type=Autre" class="btn btn-orga">Autre</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Type</th>
+                <th>Quantité</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for extra in extras %}
+                <tr>
+                    <td>{{ extra.nom }}</td>
+                    <td>{{ extra.extra_type }}</td>
+                    <td>{{ extra.quantite}} * {{ extra.prix }} € </td>
+                    <td>
+                        <a href="{% url 'modifier_extra' extra.id %}" class="btn btn-edit">Modifier</a>
+                        <a href="{% url 'supprimer_extra' extra.id %}" class="btn btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet extra ?');">Supprimer</a>
+                    </td>
+                    
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4">Aucun extra enregistré.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

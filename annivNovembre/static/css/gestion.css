@@ -59,3 +59,34 @@ button:hover {
 .back-link:hover {
     text-decoration: underline;
 }
+
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    border-radius: 5px;
+    transition: 0.3s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-delete {
+    background-color: red;
+}
+
+.btn-delete:hover {
+    background-color: rgb(133, 5, 5);
+}
+
+.btn-search {
+    background-color: blue;
+}
+
+.btn-search:hover {
+    background-color: rgb(3, 12, 59);
+}
+

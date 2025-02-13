@@ -12,10 +12,13 @@
 <body>
 
     <div class="navbar">
-        <a href="{% url 'home' %}">Accueil</a>
+        <a href="{% url 'home' %}">Liste Invités</a>
+        <a href="{% url 'home_logement' %}">Liste Logements</a>
+        <a href="{% url 'home_extra' %}">Liste Extras</a>
         <a href="{% url 'ajout_invite' %}">Ajout Invité</a>
-        <a href="{% url 'ajout_salle' %}">Ajout Dodo</a>
-        <a href="{% url 'gestion' %}">Gestion</a>
+        <a href="{% url 'ajout_salle' %}">Ajout Logement</a>
+        <a href="{% url 'ajout_extra' %}">Ajout Extra</a>
+        <a href="{% url 'gestion' %}">Budget</a>
     </div>
 
     <div class="container">
