@@ -1,5 +1,5 @@
 from django import forms
-from .models import Invite, Logement, Extras
+from .models import Invite, Logement, Extras, Note
 
 class InviteForm(forms.ModelForm):
     class Meta:
@@ -15,3 +15,8 @@ class ExtrasForm(forms.ModelForm):
     class Meta:
         model = Extras
         fields = ['extra_type', 'nom', 'description', 'prix', 'quantite']
+
+class NoteForm(forms.ModelForm):
+    class Meta:
+        model = Note
+        fields = ['note']

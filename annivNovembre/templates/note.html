@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{%  block css %}
+<link rel="stylesheet" type="text/css"  href="{% static 'css/note.css' %}">
+{%  endblock %}
+{% block content %}
+<h1>Bloc-Notes</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Enregistrer</button>
+</form>
+
+<h2>Vos notes</h2>
+<ul>
+    {% for note in notes %}
+        <li>    
+            {{ note.note }}
+            <a href="{% url 'supprimer_note' note.id %}" class="btn btn-edit">Supprimer</a>
+        </li>
+    {% empty %}
+        <li>Aucune note enregistrée.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

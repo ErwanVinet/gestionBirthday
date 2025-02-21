@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Invite, Logement, Orga, Extras
-from .forms import InviteForm, LogementForm, ExtrasForm
+from .models import Invite, Logement, Orga, Extras, Note
+from .forms import InviteForm, LogementForm, ExtrasForm, NoteForm
 from django.db.models import Count, Sum, Q
 # Create your views here.
 
@@ -53,6 +53,8 @@ def ajout_salle(request):
 
 def gestion(request):
     prix_logement = Logement.objects.aggregate(Sum('prix'))['prix__sum']
+    if prix_logement is None:
+        prix_logement = 0
     logements = Logement.objects.all().values('nom', 'prix')
 
     extras_nourriture = Extras.objects.all().filter(extra_type='Nourriture')
@@ -166,14 +168,14 @@ def home_extra(request):
 def supprimer_extra(request, extra_id):
     extra = get_object_or_404(Extras, id=extra_id)
     extra.delete()
-    return redirect('home')
+    return redirect('home_extra')
 
 def ajout_extra(request):
     if request.method == 'POST':
         form = ExtrasForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home')  # Redirige après ajout
+            return redirect('home_extra')  # Redirige après ajout
     else:
         form = ExtrasForm()
 
@@ -186,8 +188,26 @@ def modifier_extra(request, extra_id):
         form = ExtrasForm(request.POST, instance=extra)
         if form.is_valid():
             form.save()
-            return redirect('home')  # Redirige après modification
+            return redirect('home_extra')  # Redirige après modification
     else:
         form = ExtrasForm(instance=extra)
     
     return render(request, 'modifier_extra.html', {'form': form})
+
+def note(request):
+    if request.method == "POST":
+        form = NoteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('note')  # Redirige pour éviter la resoumission du formulaire
+    else:
+        form = NoteForm()
+
+    notes = Note.objects.all()  # Récupère toutes les notes
+
+    return render(request, 'note.html', {'form': form, 'notes': notes})
+
+def supprimer_note(request, note_id):
+    note = get_object_or_404(Note, id=note_id)
+    note.delete()
+    return redirect('note')

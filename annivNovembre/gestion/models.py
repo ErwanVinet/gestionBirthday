@@ -37,3 +37,6 @@ class Extras(models.Model):
     description = models.CharField(null=True, blank=True)
     prix = models.IntegerField()
     quantite = models.IntegerField()
+
+class Note(models.Model):
+    note = models.TextField()

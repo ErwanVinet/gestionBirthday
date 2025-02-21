@@ -18,4 +18,6 @@ urlpatterns = [
     path('modifier-extra/<int:extra_id>/', views.modifier_extra, name='modifier_extra'),
     path('supprimer-extra/<int:extra_id>/', views.supprimer_extra, name='supprimer_extra'),
     path('ajout_extra/', views.ajout_extra, name='ajout_extra'),
+    path('notes/', views.note, name='note'),
+    path('supprimer-note/<int:note_id>/', views.supprimer_note, name='supprimer_note'),
 ]
